@@ -56,7 +56,8 @@ public class BankAccount {
 	public String toString() {
 		return "Konto: " + accountNbr + " (" + customer + "): " + balance;
 	}
-
+	
+	//Ökar bankens kontoräknare och tilldelar detta kontot ett unikt nummer.
 	private void generateAccountNbr() {
 		Bank.accounts++;
 		accountNbr = Bank.accounts;

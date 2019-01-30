@@ -1,19 +1,29 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import se.lth.cs.pt.window.SimpleWindow;
 
 public class BankApplikation {
 	private Scanner scan = new Scanner(System.in);
-	private Bank bank = new Bank();
+	private Bank bank;
 	private boolean badChoice = false;
 
 	public static void main(String[] args) {
 		BankApplikation app = new BankApplikation();
 		app.runApplication();
+		
+
+
 	}
 
 	public void runApplication() {
-		Bank bank = new Bank();
+		bank = new Bank();
 		String choice = "";
+		addAccount("Emil", "9801194631");
+		addAccount("Emil", "9801194631");
+		addAccount("Emiasd", "9891194631");
+		addAccount("ASDjoi", "946511");
+		addAccount("Ezxvael", "9845618");
+		addAccount("Emiasdasdasd", "485168");
 
 		// Programloopen som körs tills det att användaren väljer att stänga av
 		// programmet.
@@ -67,6 +77,7 @@ public class BankApplikation {
 		case "7":
 			break;
 		case "8":
+			printAccounts();
 			break;
 		case "9":
 			System.out.println("Tack för att du använde applikationen. Välkommen åter!");
@@ -92,13 +103,33 @@ public class BankApplikation {
 		System.out.println("Personnummer: ");
 		idNrAsString = scan.nextLine();
 
+		// Hanterar exception som sker ifall perssonnumret innehåller felaktiga tecken
 		try {
 			idNr = Long.valueOf(idNrAsString);
 			bank.addAccount(name, idNr);
 		} catch (java.lang.NumberFormatException e) {
 			System.out.println("Felaktig inmatning av personnummer.");
-			SimpleWindow.delay(250);
+			SimpleWindow.delay(1500);
 		}
 	}
+	
+	//används för att testa
+	@SuppressWarnings("unused")
+	private void addAccount(String name, String idNrAsString) {
+		long idNr = Long.valueOf(idNrAsString);
+		bank.addAccount(name, idNr);
+	}
 
+	//Skriver ut alla existerande konton
+	private void printAccounts() {
+		ArrayList<BankAccount> list = bank.getAllAccounts();
+		for (BankAccount account : list) {
+			System.out.println(account);
+		}
+		
+		System.out.println("Tryck på enter för att återgå till menyn");
+		scan.nextLine();
+	}
+	
+	
 }

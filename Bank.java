@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Bank {
 	/** Skapar en ny bank utan konton. */
@@ -20,6 +21,7 @@ public class Bank {
 		BankAccount account;
 		
 		//Om kunden redan finns så skapas ett konto i dess namn.
+		//TODO: Det går inte att kontrollera på grund av att kunden inte läggs till i listan
 		if(doesCustomerExist(idNr)) {
 			account = new BankAccount(findHolder(idNr));
 		}
@@ -27,9 +29,15 @@ public class Bank {
 		//Om det är en ny kund så skapas ett nytt kundobjekt med hjälp av denna konstruktorn i BankAccount klassen.
 		else {
 			account = new BankAccount(holderName, idNr);
+			
+			//Den nya kunden läggs till i listan av kunder.
+			customerList.add(account.getHolder());
+			
 		}
 		
 		//Returnerar nummret för det nya kontot.
+		accountList.add(account);
+		
 		return account.getAccountNumber();
 	}
 	
@@ -59,7 +67,7 @@ public class Bank {
 	* Listan är sorterad på kontoinnehavarnas namn.
 	*/
 	ArrayList<BankAccount> getAllAccounts(){
-		return accountList;
+		return sortAccountList(accountList);
 	}
 	
 	/**
@@ -88,6 +96,7 @@ public class Bank {
 		return null;
 	}
 	
+	//Kontrollerar om en kund redan finns i banken
 	private boolean doesCustomerExist(long idNr) {
 		for (Customer customer: customerList) {
 			if(customer.getIdNr() == idNr) {
@@ -97,4 +106,43 @@ public class Bank {
 		return false;
 	}
 	
+	//sorterar en ArrayList<BankAccount> med hjälp av quicksort
+	private ArrayList<BankAccount> sortAccountList(ArrayList<BankAccount> list){
+		ArrayList<BankAccount> higher = new ArrayList<BankAccount>();
+		ArrayList<BankAccount> lower = new ArrayList<BankAccount>();
+		ArrayList<BankAccount> sorted = new ArrayList<BankAccount>();
+		BankAccount reference = list.get(list.size()/2);
+		list.remove(list.size()/2);
+		
+		for(BankAccount account : list) {
+			
+			//Jämför accountholderns namn med referensens namn
+			if(reference.getHolder().getName().compareTo(account.getHolder().getName()) > 0) {
+				lower.add(account);
+			}
+			else {
+				higher.add(account);
+			}
+		}
+		if (lower.size() > 1) {
+			sorted.addAll(sortAccountList(lower));
+		}
+		else {
+			sorted.addAll(lower);
+		}
+		
+		sorted.add(reference);
+		
+		if(higher.size()>1) {
+			sorted.addAll(sortAccountList(higher));
+		}
+		else {
+			sorted.addAll(higher);
+		}
+		
+		
+		return sorted;
+	}
+	
 }
+

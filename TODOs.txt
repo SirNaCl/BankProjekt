@@ -1,0 +1,2 @@
+TODO: sätt public/private på allt
+Lägg till så att sorteringen kan hantera en tom förstalista alt. se till att det aldrig skickas in någon.

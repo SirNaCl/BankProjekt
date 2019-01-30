@@ -34,6 +34,10 @@ public class Customer {
 		return "Namn: \t\t" + name + "\nPersonnummer: \t" + idNr + "\nKundnummer: \t" + custumerNr;
 	}
 	
+	public String toStringCompressed() {
+		return "Namn: " + name + "Personnummer: " + idNr + "Kundnummer: " + custumerNr;
+	}
+	
 	//Ökar bankens kundräknare och ger kunden ett unikt id
 	private void generateCustomerNr() {
 		Bank.custumers++;

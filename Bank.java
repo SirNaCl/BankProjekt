@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Bank {
 	/** Skapar en ny bank utan konton. */
+	public static int custumers = 1000, accounts = 1000;
+	
 	Bank(){
 		
 	}

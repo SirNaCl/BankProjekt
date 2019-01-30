@@ -1,5 +1,5 @@
 
-public class Customer implements Comparable<Customer>{
+public class Customer implements Comparable<Customer> {
 	private long idNr;
 	private int custumerNr;
 	private String name;
@@ -33,9 +33,8 @@ public class Customer implements Comparable<Customer>{
 	public String toString() {
 		return "Namn: " + name + " Personnummer: " + idNr + " Kundnummer: " + custumerNr;
 	}
-	
-	
-	//Ökar bankens kundräknare och ger kunden ett unikt id
+
+	// Ökar bankens kundräknare och ger kunden ett unikt id
 	private void generateCustomerNr() {
 		Bank.customers++;
 		custumerNr = Bank.customers;
@@ -44,11 +43,10 @@ public class Customer implements Comparable<Customer>{
 	@Override
 	public int compareTo(Customer o) {
 		// Om exakt samma objekt
-				if (o == this) {
-					return 0;
-				}
-				return name.compareTo(o.name);
+		if (o == this) {
+			return 0;
+		}
+		return name.compareTo(o.name);
 	}
-	
-	
+
 }

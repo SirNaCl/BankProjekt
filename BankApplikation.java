@@ -10,8 +10,6 @@ public class BankApplikation {
 	public static void main(String[] args) {
 		BankApplikation app = new BankApplikation();
 		app.runApplication();
-		
-
 
 	}
 
@@ -40,7 +38,7 @@ public class BankApplikation {
 			choice = listenForChoice();
 			actOnChoice(choice);
 
-		} while (!choice.equals("9"));
+		} while (!choice.equals("9")); // Kör programmet så länge valet inte är 9
 	}
 
 	// \Skriver ut menyn i konsolen
@@ -112,24 +110,23 @@ public class BankApplikation {
 			SimpleWindow.delay(1500);
 		}
 	}
-	
-	//används för att testa
+
+	// används för att testa
 	@SuppressWarnings("unused")
 	private void addAccount(String name, String idNrAsString) {
 		long idNr = Long.valueOf(idNrAsString);
 		bank.addAccount(name, idNr);
 	}
 
-	//Skriver ut alla existerande konton
+	// Skriver ut alla existerande konton
 	private void printAccounts() {
 		ArrayList<BankAccount> list = bank.getAllAccounts();
 		for (BankAccount account : list) {
 			System.out.println(account);
 		}
-		
+
 		System.out.println("Tryck på enter för att återgå till menyn");
 		scan.nextLine();
 	}
-	
-	
+
 }

@@ -54,7 +54,7 @@ public class BankAccount {
 
 	/** Returnerar en strängrepresentation av bankkontot. */
 	public String toString() {
-		return "Konto: " + accountNbr + " (" + customer.toStringCompressed() + "): " + balance;
+		return "Konto: " + accountNbr + " (" + customer + "): " + balance;
 	}
 
 	private void generateAccountNbr() {

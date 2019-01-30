@@ -31,16 +31,15 @@ public class Customer {
 
 	/** Returnerar en strängbeskrivning av kunden. */
 	public String toString() {
-		return "Namn: \t\t" + name + "\nPersonnummer: \t" + idNr + "\nKundnummer: \t" + custumerNr;
+		return "Namn: \t\t" + name + "Personnummer: \t" + idNr + "Kundnummer: \t" + custumerNr;
 	}
 	
-	public String toStringCompressed() {
-		return "Namn: " + name + "Personnummer: " + idNr + "Kundnummer: " + custumerNr;
-	}
 	
 	//Ökar bankens kundräknare och ger kunden ett unikt id
 	private void generateCustomerNr() {
-		Bank.custumers++;
-		custumerNr = Bank.custumers;
+		Bank.customers++;
+		custumerNr = Bank.customers;
 	}
+	
+	
 }

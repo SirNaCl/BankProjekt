@@ -66,6 +66,10 @@ public class Bank {
 	 * sorterad på kontoinnehavarnas namn.
 	 */
 	ArrayList<BankAccount> getAllAccounts() {
+		if (accountList.size() == 0) {
+			return null;
+		}
+
 		return sortAccountList(accountList);
 	}
 
@@ -74,6 +78,11 @@ public class Bank {
 	 * Returnerar null om inget sådant konto finns.
 	 */
 	BankAccount findByNumber(int accountNumber) {
+		for(BankAccount account : accountList) {
+			if (account.getAccountNumber() == accountNumber) {
+				return account;
+			}
+		}
 		return null;
 	}
 
@@ -82,7 +91,19 @@ public class Bank {
 	 * returneras i en lista. Kunderna antas ha unika id-nummer.
 	 */
 	ArrayList<BankAccount> findAccountsForHolder(long idNr) {
-		return null;
+		ArrayList<BankAccount> foundAccounts = new ArrayList<BankAccount>();
+
+		for (BankAccount account : accountList) {
+			if (account.getHolder().getIdNr() == idNr) {
+				foundAccounts.add(account);
+			}
+		}
+
+		if (foundAccounts.size() == 0) {
+			return null;
+		}
+
+		return foundAccounts;
 	}
 
 	/**
@@ -93,7 +114,19 @@ public class Bank {
 	 * på stora och små bokstäver.
 	 */
 	ArrayList<Customer> findByPartofName(String namePart) {
-		return null;
+		ArrayList<Customer> result = new ArrayList<Customer>();
+
+		if (namePart == null) {
+			return null;
+		}
+
+		for (Customer customer : customerList) {
+			if (customer.getName().toLowerCase().contains(namePart.toLowerCase())) {
+				result.add(customer);
+			}
+		}
+
+		return result;
 	}
 
 	// Kontrollerar om en kund redan finns i banken

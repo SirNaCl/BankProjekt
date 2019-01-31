@@ -16,6 +16,7 @@ public class BankApplikation {
 	public void runApplication() {
 		bank = new Bank();
 		String choice = "";
+
 		addAccount("Emil", "9801194631");
 		addAccount("Emil", "9801194631");
 		addAccount("Emiasd", "9891194631");
@@ -60,10 +61,13 @@ public class BankApplikation {
 	private void actOnChoice(String choice) {
 		switch (choice) {
 		case "1":
+			findAccountsByID();
 			break;
 		case "2":
+			searchByName();
 			break;
 		case "3":
+			depositToAccount();
 			break;
 		case "4":
 			break;
@@ -111,7 +115,7 @@ public class BankApplikation {
 		}
 	}
 
-	// används för att testa
+	// skapar konton som används för att testa
 	@SuppressWarnings("unused")
 	private void addAccount(String name, String idNrAsString) {
 		long idNr = Long.valueOf(idNrAsString);
@@ -125,6 +129,108 @@ public class BankApplikation {
 			System.out.println(account);
 		}
 
+		System.out.println("Tryck på enter för att återgå till menyn");
+		scan.nextLine();
+	}
+
+	private void findAccountsByID() {
+		long idNr = askForID();
+		ArrayList<BankAccount> accountList;
+		if (idNr == -1) {
+
+		}
+
+		else {
+			accountList = bank.findAccountsForHolder(idNr);
+			for (BankAccount account : accountList) {
+				System.out.println(account);
+			}
+			System.out.println("Tryck på enter för att återgå till menyn.");
+			scan.nextLine();
+		}
+	}
+
+	private long askForID() {
+		String input;
+		System.out.println("Vänligen skriv in det önskade personnummret: ");
+		input = scan.nextLine();
+
+		try {
+			return Long.valueOf(input);
+
+		} catch (java.lang.NumberFormatException e) {
+			System.out.println("Felaktig inmatning av personnummer, tryck på enter för att återgå till menyn.");
+			scan.nextLine();
+			return -1;
+		}
+	}
+
+	private void searchByName() {
+		String name;
+		ArrayList<Customer> result = new ArrayList<Customer>();
+
+		System.out.println("Ange det namn du vill söka på: ");
+		name = scan.nextLine();
+		result = bank.findByPartofName(name);
+
+		if (result == null) {
+			System.out.println("Inga kunder matchar din sökning, tryck på enter för att återgå till menyn.");
+			scan.nextLine();
+		}
+
+		else {
+			for (Customer customer : result) {
+				System.out.println(customer);
+			}
+			System.out.println("Tryck på enter för att gå tillbaka till menyn.");
+			scan.nextLine();
+		}
+
+	}
+
+	private void depositToAccount() {
+		String inputNbr, inputAmount;
+		int accountNumber, amount;
+		BankAccount account;
+
+		System.out.println("Vänligen skriv in nummer på det konto som du vill sätta in pengar på");
+		inputNbr = scan.nextLine();
+		System.out.println("Ange hur mycket du vill sätta in: ");
+		inputAmount = scan.nextLine();
+
+		try {
+			accountNumber = Integer.parseInt(inputNbr);
+			amount = Integer.parseInt(inputAmount);
+
+			account = bank.findByNumber(accountNumber);
+
+			if (account != null && amount > 0) {
+				account.deposit(amount);
+				System.out.println(account);
+			}
+
+			else if (amount <= 0) {
+				System.out.println("Felaktigt belopp");
+				waitForEnter();
+			}
+			
+			else {
+				System.out.println("Kontot kunde inte hittas");
+				waitForEnter();
+			}
+
+		} catch (java.lang.NumberFormatException e) {
+			System.out.println("Felaktigt inmatning, tryck på enter för att återgå till menyn.");
+			scan.nextLine();
+		}
+
+	}
+
+	private void withdrawFromAccount() {
+		
+	}
+	// Pausar programmet tills det att användaren trycker på enterknappen
+	private void waitForEnter() {
 		System.out.println("Tryck på enter för att återgå till menyn");
 		scan.nextLine();
 	}

@@ -54,7 +54,7 @@ public class BankAccount {
 
 	/** Returnerar en strängrepresentation av bankkontot. */
 	public String toString() {
-		return "Konto: " + accountNbr + " (" + customer + "): " + balance;
+		return "Konto: " + accountNbr + " (" + customer + "), Saldo: " + balance;
 	}
 
 	// Ökar bankens kontoräknare och tilldelar detta kontot ett unikt nummer.

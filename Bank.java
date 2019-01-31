@@ -58,6 +58,12 @@ public class Bank {
 	 * fanns (och kunde tas bort), annars false.
 	 */
 	boolean removeAccount(int number) {
+		BankAccount account = findByNumber(number);
+
+		if (account != null) {
+			accountList.remove(account);
+			return true;
+		}
 		return false;
 	}
 
@@ -78,7 +84,7 @@ public class Bank {
 	 * Returnerar null om inget sådant konto finns.
 	 */
 	BankAccount findByNumber(int accountNumber) {
-		for(BankAccount account : accountList) {
+		for (BankAccount account : accountList) {
 			if (account.getAccountNumber() == accountNumber) {
 				return account;
 			}
@@ -143,11 +149,15 @@ public class Bank {
 	private ArrayList<BankAccount> sortAccountList(ArrayList<BankAccount> list) {
 		ArrayList<BankAccount> higher = new ArrayList<BankAccount>();
 		ArrayList<BankAccount> lower = new ArrayList<BankAccount>();
+		ArrayList<BankAccount> unsorted = new ArrayList<BankAccount>();
 		ArrayList<BankAccount> sorted = new ArrayList<BankAccount>();
-		BankAccount reference = list.get(list.size() / 2);
-		list.remove(list.size() / 2);
+		
+		unsorted.addAll(list);
+		
+		BankAccount reference = unsorted.get(unsorted.size() / 2);
+		unsorted.remove(unsorted.size() / 2);
 
-		for (BankAccount account : list) {
+		for (BankAccount account : unsorted) {
 
 			// Jämför accountholderns namn med referensens namn och lägger därefter till
 			// kontot i rätt lista

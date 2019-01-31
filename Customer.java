@@ -40,6 +40,8 @@ public class Customer implements Comparable<Customer> {
 		custumerNr = Bank.customers;
 	}
 
+	// Använder samma interface och metod som i lab 7 för att kunna sortera kunder
+	// efter namn
 	@Override
 	public int compareTo(Customer o) {
 		// Om exakt samma objekt

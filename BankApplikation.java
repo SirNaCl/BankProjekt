@@ -18,6 +18,7 @@ public class BankApplikation {
 		String choice = "";
 
 		addAccount("Emil", "9801194631");
+		bank.findByNumber(1001).deposit(1000);
 		addAccount("Emil", "9801194631");
 		addAccount("Emiasd", "9891194631");
 		addAccount("ASDjoi", "946511");
@@ -70,13 +71,16 @@ public class BankApplikation {
 			depositToAccount();
 			break;
 		case "4":
+			withdrawFromAccount();
 			break;
 		case "5":
+			transferBetweenAccounts();
 			break;
 		case "6":
 			addAccount();
 			break;
 		case "7":
+			removeAccount();
 			break;
 		case "8":
 			printAccounts();
@@ -207,9 +211,10 @@ public class BankApplikation {
 			if (account != null && amount > 0) {
 				account.deposit(amount);
 				System.out.println(account);
+				waitForEnter();
 			}
 
-			else if (amount <= 0) {
+			else if (account != null && amount <= 0) {
 				System.out.println("Felaktigt belopp");
 				waitForEnter();
 			}
@@ -227,8 +232,116 @@ public class BankApplikation {
 	}
 
 	private void withdrawFromAccount() {
-		
+		String inputNbr, inputAmount;
+		int accountNumber, amount;
+		BankAccount account;
+
+		System.out.println("Vänligen skriv in nummer på det konto som du vill ta ut pengar ifrån");
+		inputNbr = scan.nextLine();
+		System.out.println("Ange hur mycket du vill ta ut: ");
+		inputAmount = scan.nextLine();
+
+		try {
+			accountNumber = Integer.parseInt(inputNbr);
+			amount = Integer.parseInt(inputAmount);
+
+			account = bank.findByNumber(accountNumber);
+
+			if (account != null && amount < account.getAmount()) {
+				account.withdraw(amount);
+				System.out.println(account);
+				waitForEnter();
+			}
+
+			else if (account != null && amount >= account.getAmount()) {
+				System.out.println("Otillräckligt saldo");
+				waitForEnter();
+			}
+			
+			else {
+				System.out.println("Kontot kunde inte hittas");
+				waitForEnter();
+			}
+
+		} catch (java.lang.NumberFormatException e) {
+			System.out.println("Felaktigt inmatning, tryck på enter för att återgå till menyn.");
+			scan.nextLine();
+		}
+
 	}
+
+	private void transferBetweenAccounts() {
+		String inputSenderNbr, inputRecieverNbr, inputAmount;
+		int accountNumberSender, accountNumberReciever, amount;
+		BankAccount sender, reciever;
+
+		System.out.println("Vänligen skriv in nummer på det konto som du vill skicka pengar från");
+		inputSenderNbr = scan.nextLine();
+		System.out.println("Vänligen skriv in nummer på det konto som du vill skicka pengar till");
+		inputRecieverNbr = scan.nextLine();
+		System.out.println("Ange hur mycket du vill skicka: ");
+		inputAmount = scan.nextLine();
+
+		try {
+			accountNumberSender = Integer.parseInt(inputSenderNbr);
+			accountNumberReciever = Integer.parseInt(inputRecieverNbr);
+			amount = Integer.parseInt(inputAmount);
+
+			sender = bank.findByNumber(accountNumberSender);
+			reciever = bank.findByNumber(accountNumberReciever);
+
+			if (sender != null && reciever != null && amount < sender.getAmount()) {
+				sender.withdraw(amount);
+				reciever.deposit(amount);
+				System.out.println(sender);
+				System.out.println(reciever);
+				waitForEnter();
+			}
+			
+			//Om det inte finns tillräckligt pengar på kontot
+			else if (sender != null && reciever != null && amount >= sender.getAmount()) {
+				System.out.println("Otillräckligt saldo");
+				waitForEnter();
+			}
+			
+			else {
+				System.out.println("Konto kunde inte hittas");
+				waitForEnter();
+			}
+
+		} catch (java.lang.NumberFormatException e) {
+			System.out.println("Felaktigt inmatning, tryck på enter för att återgå till menyn.");
+			scan.nextLine();
+		}
+
+	}
+	
+	private void removeAccount() {
+		String input;
+		int accountNumber;
+
+		System.out.println("Vänligen skriv in nummer på det konto som du vill ta bort");
+		input = scan.nextLine();
+
+		try {
+			accountNumber = Integer.parseInt(input);
+			
+			if (bank.removeAccount(accountNumber)) {
+				System.out.println("Konto borttaget.");
+				waitForEnter();
+			}
+			
+			else {
+				System.out.println("Konto kunde inte hittas eller tas bort");
+				waitForEnter();
+			}
+
+		} catch (java.lang.NumberFormatException e) {
+			System.out.println("Felaktigt inmatning.");
+			waitForEnter();
+		}
+	}
+	
 	// Pausar programmet tills det att användaren trycker på enterknappen
 	private void waitForEnter() {
 		System.out.println("Tryck på enter för att återgå till menyn");

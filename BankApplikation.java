@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import se.lth.cs.pt.window.SimpleWindow;
 
 public class BankApplikation {
 	private Scanner scan = new Scanner(System.in);
@@ -115,7 +114,7 @@ public class BankApplikation {
 			bank.addAccount(name, idNr);
 		} catch (java.lang.NumberFormatException e) {
 			System.out.println("Felaktig inmatning av personnummer.");
-			SimpleWindow.delay(1500);
+			waitForEnter();
 		}
 	}
 
@@ -129,12 +128,17 @@ public class BankApplikation {
 	// Skriver ut alla existerande konton
 	private void printAccounts() {
 		ArrayList<BankAccount> list = bank.getAllAccounts();
-		for (BankAccount account : list) {
-			System.out.println(account);
+		
+		if (list == null) {
+			System.out.println("Det finns inga konton.");
 		}
-
-		System.out.println("Tryck på enter för att återgå till menyn");
-		scan.nextLine();
+		
+		else {
+			for (BankAccount account : list) {
+				System.out.println(account);
+			}
+		}
+		waitForEnter();
 	}
 
 	private void findAccountsByID() {
@@ -230,7 +234,7 @@ public class BankApplikation {
 		}
 
 	}
-
+      
 	private void withdrawFromAccount() {
 		String inputNbr, inputAmount;
 		int accountNumber, amount;
@@ -247,9 +251,14 @@ public class BankApplikation {
 
 			account = bank.findByNumber(accountNumber);
 
-			if (account != null && amount < account.getAmount()) {
+			if (account != null && amount < account.getAmount() && amount > 0) {
 				account.withdraw(amount);
 				System.out.println(account);
+				waitForEnter();
+			}
+			
+			else if (account != null && amount <= 0) {
+				System.out.println("Felaktigt belopp");
 				waitForEnter();
 			}
 
@@ -257,6 +266,7 @@ public class BankApplikation {
 				System.out.println("Otillräckligt saldo");
 				waitForEnter();
 			}
+			
 			
 			else {
 				System.out.println("Kontot kunde inte hittas");

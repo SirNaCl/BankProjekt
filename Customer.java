@@ -8,7 +8,7 @@ public class Customer implements Comparable<Customer> {
 	 * Skapar en kund (kontoinnehavare) med namnet ’name’ och id-nummer ’idNr’.
 	 * Kunden tilldelas också ett unikt kundnummer.
 	 */
-	Customer(String name, long idNr) {
+	public Customer(String name, long idNr) {
 		this.name = name;
 		this.idNr = idNr;
 		generateCustomerNr();

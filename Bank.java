@@ -6,7 +6,7 @@ public class Bank {
 	private ArrayList<Customer> customerList;
 	private ArrayList<BankAccount> accountList;
 
-	Bank() {
+	public Bank() {
 		customerList = new ArrayList<Customer>();
 		accountList = new ArrayList<BankAccount>();
 	}
@@ -44,7 +44,7 @@ public class Bank {
 	 * Returnerar den kontoinnehavaren som har det givna id-numret, eller null om
 	 * ingen sådan finns.
 	 */
-	Customer findHolder(long idNr) {
+	public Customer findHolder(long idNr) {
 		for (Customer customer : customerList) {
 			if (customer.getIdNr() == idNr) {
 				return customer;
@@ -57,7 +57,7 @@ public class Bank {
 	 * Tar bort konto med nummer ’number’ från banken. Returnerar true om kontot
 	 * fanns (och kunde tas bort), annars false.
 	 */
-	boolean removeAccount(int number) {
+	public boolean removeAccount(int number) {
 		BankAccount account = findByNumber(number);
 
 		if (account != null) {
@@ -71,7 +71,7 @@ public class Bank {
 	 * Returnerar en lista innehållande samtliga bankkonton i banken. Listan är
 	 * sorterad på kontoinnehavarnas namn.
 	 */
-	ArrayList<BankAccount> getAllAccounts() {
+	public ArrayList<BankAccount> getAllAccounts() {
 		if (accountList.size() == 0) {
 			return null;
 		}
@@ -83,7 +83,7 @@ public class Bank {
 	 * Söker upp och returnerar bankkontot med kontonummer ’accountNumber’.
 	 * Returnerar null om inget sådant konto finns.
 	 */
-	BankAccount findByNumber(int accountNumber) {
+	public BankAccount findByNumber(int accountNumber) {
 		for (BankAccount account : accountList) {
 			if (account.getAccountNumber() == accountNumber) {
 				return account;
@@ -96,7 +96,7 @@ public class Bank {
 	 * Söker upp alla bankkonton som innehas av kunden med id-nummer ’idNr’. Kontona
 	 * returneras i en lista. Kunderna antas ha unika id-nummer.
 	 */
-	ArrayList<BankAccount> findAccountsForHolder(long idNr) {
+	public ArrayList<BankAccount> findAccountsForHolder(long idNr) {
 		ArrayList<BankAccount> foundAccounts = new ArrayList<BankAccount>();
 
 		for (BankAccount account : accountList) {
@@ -119,7 +119,7 @@ public class Bank {
 	 * resultatet. Sökningen är "case insensitive", det vill säga gör ingen skillnad
 	 * på stora och små bokstäver.
 	 */
-	ArrayList<Customer> findByPartofName(String namePart) {
+	public ArrayList<Customer> findByPartofName(String namePart) {
 		ArrayList<Customer> result = new ArrayList<Customer>();
 
 		if (namePart == null) {

@@ -128,11 +128,11 @@ public class BankApplikation {
 	// Skriver ut alla existerande konton
 	private void printAccounts() {
 		ArrayList<BankAccount> list = bank.getAllAccounts();
-		
+
 		if (list == null) {
 			System.out.println("Det finns inga konton.");
 		}
-		
+
 		else {
 			for (BankAccount account : list) {
 				System.out.println(account);
@@ -222,7 +222,7 @@ public class BankApplikation {
 				System.out.println("Felaktigt belopp");
 				waitForEnter();
 			}
-			
+
 			else {
 				System.out.println("Kontot kunde inte hittas");
 				waitForEnter();
@@ -234,7 +234,7 @@ public class BankApplikation {
 		}
 
 	}
-      
+
 	private void withdrawFromAccount() {
 		String inputNbr, inputAmount;
 		int accountNumber, amount;
@@ -256,7 +256,7 @@ public class BankApplikation {
 				System.out.println(account);
 				waitForEnter();
 			}
-			
+
 			else if (account != null && amount <= 0) {
 				System.out.println("Felaktigt belopp");
 				waitForEnter();
@@ -266,8 +266,7 @@ public class BankApplikation {
 				System.out.println("Otillräckligt saldo");
 				waitForEnter();
 			}
-			
-			
+
 			else {
 				System.out.println("Kontot kunde inte hittas");
 				waitForEnter();
@@ -307,13 +306,13 @@ public class BankApplikation {
 				System.out.println(reciever);
 				waitForEnter();
 			}
-			
-			//Om det inte finns tillräckligt pengar på kontot
+
+			// Om det inte finns tillräckligt pengar på kontot
 			else if (sender != null && reciever != null && amount >= sender.getAmount()) {
 				System.out.println("Otillräckligt saldo");
 				waitForEnter();
 			}
-			
+
 			else {
 				System.out.println("Konto kunde inte hittas");
 				waitForEnter();
@@ -325,7 +324,7 @@ public class BankApplikation {
 		}
 
 	}
-	
+
 	private void removeAccount() {
 		String input;
 		int accountNumber;
@@ -335,12 +334,12 @@ public class BankApplikation {
 
 		try {
 			accountNumber = Integer.parseInt(input);
-			
+
 			if (bank.removeAccount(accountNumber)) {
 				System.out.println("Konto borttaget.");
 				waitForEnter();
 			}
-			
+
 			else {
 				System.out.println("Konto kunde inte hittas eller tas bort");
 				waitForEnter();
@@ -351,7 +350,7 @@ public class BankApplikation {
 			waitForEnter();
 		}
 	}
-	
+
 	// Pausar programmet tills det att användaren trycker på enterknappen
 	private void waitForEnter() {
 		System.out.println("Tryck på enter för att återgå till menyn");

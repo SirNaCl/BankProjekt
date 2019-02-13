@@ -1,5 +1,5 @@
 
-public class Customer implements Comparable<Customer> {
+public class Customer {
 	private long idNr;
 	private int custumerNr;
 	private String name;
@@ -39,16 +39,4 @@ public class Customer implements Comparable<Customer> {
 		Bank.customers++;
 		custumerNr = Bank.customers;
 	}
-
-	// Använder samma interface och metod som i lab 7 för att kunna sortera kunder
-	// efter namn
-	@Override
-	public int compareTo(Customer o) {
-		// Om exakt samma objekt
-		if (o == this) {
-			return 0;
-		}
-		return name.compareTo(o.name);
-	}
-
 }

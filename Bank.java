@@ -151,9 +151,9 @@ public class Bank {
 		ArrayList<BankAccount> lower = new ArrayList<BankAccount>();
 		ArrayList<BankAccount> unsorted = new ArrayList<BankAccount>();
 		ArrayList<BankAccount> sorted = new ArrayList<BankAccount>();
-		
+
 		unsorted.addAll(list);
-		
+
 		BankAccount reference = unsorted.get(unsorted.size() / 2);
 		unsorted.remove(unsorted.size() / 2);
 
@@ -186,5 +186,4 @@ public class Bank {
 
 		return sorted;
 	}
-
 }
